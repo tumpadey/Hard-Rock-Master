@@ -12,12 +12,13 @@ searchBtn.addEventListener('click',search=>{
 });
 
 
-function searchSong(term){
+async function searchSong(term){
 
 
-    fetch(`https://api.lyrics.ovh/suggest/${term}`)
-    .then(res => res.json())
-    .then(json => showSong(json))
+   const response = await fetch(`https://api.lyrics.ovh/suggest/${term}`);
+   const data = await response.json();
+   //console.log(data);
+    showSong(data);
     
     
     
@@ -59,6 +60,13 @@ result.addEventListener('click',result=>{
 async function getLyrics(artist,songTitle){
    const res = await fetch(`https://api.lyrics.ovh/v1/${artist}/${songTitle}`);
    const data = await res.json();
+
+   if(data.lyrics === undefined){
+       confirm("Lyrics Not Found")
+   }
+   else{
+    const lyrics = data.lyrics.replace(/(\r\n|\r|\n)/g, '<br>');
+   }
     
    const lyrics =data.lyrics.replace(/(\r\n|\r|\n)/g, '<br>');
     

@@ -1,1 +1,1 @@
-# hard-rock-master
+# Hard-Rock-Master
